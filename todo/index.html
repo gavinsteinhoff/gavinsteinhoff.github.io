@@ -1,26 +1,97 @@
 <html>
 
+<body>
+
+    <div id='result'></div>
+
     <form id="add">
         <p>
             Add an item to the list:
             <input type="text">
-            <input type="button" value="Submit">
+            <input type="button" value="Submit" onclick="addItem('list',document.forms[0][0].value)">
         </p>
-
     </form>
 
+    <div id="list">
 
-    <script>
-        // Check browser support
-        if (typeof(Storage) !== "undefined") {
-            // Store
-            localStorage.setItem("lastname", "Smith");
-            // Retrieve
-            document.getElementById("result").innerHTML = localStorage.getItem("lastname");
-            } else {
-                document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
-            }
-    </script>
+    </div>
+</body>
+
+<script>
+
+    window.onload = function () {
+        if (testBrowser()) loadList();
+    }
+
+    function testBrowser() {
+        if (typeof (Storage) !== "undefined") {
+            if (localStorage.getItem('list') == null) localStorage.setItem('list','[]');
+            if (localStorage.getItem('done') == null) localStorage.setItem('done','[]');
+            return true;
+        } else {
+            document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+            return false;
+        }
+    }
+
+    function loadList() {
+        list = getStorage('list');
+        document.getElementById('list').innerHTML = "";
+        list.forEach(item => {
+            var btnDelete = document.createElement("INPUT");
+            btnDelete.setAttribute("type", "button");
+            btnDelete.setAttribute('onClick',`remove('${item}')`);
+            btnDelete.setAttribute("value",'Delete');
+
+            var btnComplete = document.createElement("INPUT");
+            btnComplete.setAttribute("type", "button");
+            btnComplete.setAttribute('onClick',`complete('${item}')`);
+            btnComplete.setAttribute("value",'Complete');
+
+            var btnHolder = document.createElement('P');
+            btnHolder.appendChild(btnComplete);
+            btnHolder.appendChild(btnDelete);
+
+            var text = document.createElement('P');
+            text.innerHTML += item;
+
+            document.getElementById('list').appendChild(text);
+            document.getElementById('list').appendChild(btnHolder);
+        });
+    }
+
+    function remove(item) {
+        var list = getStorage('list');
+        var index = list.indexOf(item);
+        list.splice(index,1);
+        updateStorage('list',list);
+    }
+
+    function complete(item) {
+        remove(item);
+        addItem('done',item)
+    }
+
+    function addItem(listName,item) {
+        var list = getStorage(listName);
+        list.push(item);
+        updateStorage(listName,list);
+    }
+
+    function updateStorage(listName,listJSON) {
+        var listString = JSON.stringify(listJSON);
+        localStorage.setItem(listName, listString);
+        loadList();
+    }
+
+    function getStorage(listName) {
+        var listString = localStorage.getItem(listName);
+        var listJSON = JSON.parse(listString);
+        return listJSON;
+    }
+
+
+</script>
 
 
 </html>
