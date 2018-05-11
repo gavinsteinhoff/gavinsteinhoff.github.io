@@ -1,1 +1,26 @@
+<html>
 
+    <form id="add">
+        <p>
+            Add an item to the list:
+            <input type="text">
+            <input type="button" value="Submit">
+        </p>
+
+    </form>
+
+
+    <script>
+        // Check browser support
+        if (typeof(Storage) !== "undefined") {
+            // Store
+            localStorage.setItem("lastname", "Smith");
+            // Retrieve
+            document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+            } else {
+                document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+            }
+    </script>
+
+
+</html>
