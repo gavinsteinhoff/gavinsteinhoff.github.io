@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Quick Shift</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <p>
+        <input type="button" value="Show Staff" onclick="showStaff()">
+    </p>
+
+    <table border="1" id="staff">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Sunday</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+        </tr>
+    </table>
+
+
+    <br><br>
+    <form id='manual'>
+        Monday Morning:
+        <br> Number of Workers:
+        <input id='monday-morning-number' type="number">
+        <div id='monday-morning'>
+        </div>
+    </form>
+
+
+
+</body>
+
+<script>
+
+    $('#monday-morning-number').on('input', function () {
+        var div = document.getElementById('monday-morning');
+        div.innerHTML = "";
+        for (var i = 0; i < $(this).val(); i++) {
+            var sel = document.createElement('select');
+            sel.setAttribute("value", "Employee " + i+1);
+            staffFile.staff.forEach(staff => {
+                var opt = document.createElement('option');
+                opt.setAttribute("value", staff.fname + " " + staff.lname);
+                opt.innerHTML = staff.fname + " " + staff.lname;
+                sel.appendChild(opt);
+            });
+            div.appendChild(sel);
+        }
+    });
+
+    var staffFile;
+
+    function showStaff() {
+
+        var table = document.getElementById("staff");
+
+        staffFile.staff.forEach(staff => {
+            var tr = document.createElement("tr");
+            tr.appendChild(makeTD(staff.fname));
+            tr.appendChild(makeTD(staff.lname));
+            tr.appendChild(makeShiftTD(staff, "Sunday"));
+            tr.appendChild(makeShiftTD(staff, "Monday"));
+            tr.appendChild(makeShiftTD(staff, "Tuesday"));
+            tr.appendChild(makeShiftTD(staff, "Wednesday"));
+            tr.appendChild(makeShiftTD(staff, "Thursday"));
+            tr.appendChild(makeShiftTD(staff, "Friday"));
+            tr.appendChild(makeShiftTD(staff, "Saturday"));
+            table.appendChild(tr);
+        });
+    }
+
+    function makeTD(txt) {
+        var td = document.createElement("td");
+        var txt = document.createTextNode(txt);
+        td.appendChild(txt);
+        return td;
+    }
+
+    function makeShiftTD(person, day) {
+        var td = document.createElement("td");
+        var p = document.createElement("p");
+        var shift = person.shifts[day].shift.split("");
+        if (shift[0] == 1) p.innerHTML += "Can Work Morning";
+        else p.innerHTML += "Can't Work Morning";
+        p.appendChild(document.createElement("br"));
+        if (shift[0] == 1) p.innerHTML += "Can Work Afternoon";
+        else p.innerHTML += "Can't Work Afternoon";
+        p.appendChild(document.createElement("br"));
+        if (shift[0] == 1) p.innerHTML += "Can Work Night";
+        else p.innerHTML += "Can't Work Night";
+        td.appendChild(p);
+        return td;
+    }
+
+    $(document).ready(function () {
+        getFile('staffFile.json')
+    });
+
+    function getFile(file) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                staffFile = JSON.parse(this.responseText);
+            }
+        };
+        xmlhttp.open("GET", file, true);
+        xmlhttp.send();
+    }
+
+
+
+</script>
+
+
+
+
+</html>
