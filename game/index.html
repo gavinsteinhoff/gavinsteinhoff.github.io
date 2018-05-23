@@ -12,8 +12,8 @@
     <form>
         <input type="number" id="row" min='1' max='100' value="3">
         <input type="number" id="col" min='1' max='100' value="3">
-        <button onclick="startGame()">Start Game</button>
     </form>
+    <button onclick="startGame()">Start Game</button>
     <div id='board'></div>
 </body>
 
@@ -23,7 +23,6 @@
     var buttons;
     var row;
     var col;
-    var str = 'abcdefghijklmnopqrstuvwxyz';
 
     function startGame() {
         turn = 0;
@@ -32,10 +31,10 @@
         if (col <= 100 && row <= 100) {
             buttons = {};
 
-            for (var j = 0; j < col; j++) {
-                buttons[str.charAt(j)] = {};
+            for (var j = 1; j <= col; j++) {
+                buttons[j] = {};
                 for (var i = 1; i <= row; i++) {
-                    buttons[str.charAt(j)][i] = 0;
+                    buttons[j][i] = 0;
                 }
             }
 
@@ -46,11 +45,11 @@
 
     function createBoard(b) {
         b.innerHTML = "";
-        for (var j = 0; j < col; j++) {
+        for (var j = 1; j <= col; j++) {
             for (var i = 1; i <= row; i++) {
                 var button = document.createElement("BUTTON");
-                button.setAttribute('onclick', `play('${str.charAt(j) + i}')`);
-                button.setAttribute('id', `${str.charAt(j) + i}`)
+                button.setAttribute('onclick', "play('" + j + " " + i + "')");
+                button.setAttribute('id', j + " " + i);
                 button.innerHTML = "&nbsp;";
                 b.appendChild(button);
             }
@@ -69,7 +68,7 @@
             button.innerHTML = "O";
             player = 2;
         }
-        var spots = spot.split("");
+        var spots = spot.split(" ");
         buttons[spots[0]][spots[1]] = player;
         spots.push(player);
         console.log(checkWin(spots));
@@ -77,7 +76,7 @@
     }
 
     function checkWin(spots) {
-        //console.clear();
+        console.clear();
         var win = true;
         for (var i = 1; i <= row; i++) {
             //console.log(spots[0] + " " + i)
@@ -87,33 +86,25 @@
         }
         if (!win) {
             win = true;
-            for (var j = 0; j < col; j++) {
-                if (buttons[str.charAt(j)][spots[1]] != spots[2]) {
-                    //console.log(str.charAt(j) + " " + spots[1])
+            for (var j = 1; j <= col; j++) {
+                if (buttons[j][spots[1]] != spots[2]) {
+                    //console.log(j + " " + spots[1])
                     win = false;
                 }
             }
         }
         if (!win) {
-            if (row / col == 0) {
+            if (row / col == 1) {
                 win = true;
-
-
-
-
-
-                if (buttons['b'][2] == spots[2]) {
-                    if (buttons['a'][1] != spots[2] || buttons['c'][3] != spots[2]) {
-                        if (buttons['c'][1] != spots[2] || buttons['a'][3] != spots[2]) {
-                            win = false;
-                        }
+                for (var i = 1; i<= row; i++) {
+                    console.log(i + " " + buttons[i][i]);
+                    if (buttons[i][i] != spots[2]){
+                        return false;
                     }
-                } else {
-                    win = false;
                 }
             }
-            return win;
         }
+        return win;
     }
 
     function win(player) {
