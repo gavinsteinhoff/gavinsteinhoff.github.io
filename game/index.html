@@ -11,9 +11,15 @@
 <body>
     <form>
         <input type="number" id="row" min='1' max='100' value="3">
-        <input type="number" id="col" min='1' max='100' value="3">
+        <input type="number" id="col" min='1' max='100' value="3"> Play with AI?
+        <input type="radio" id='ai' name="ai" value="yes">Yes
+        <input type="radio" name="ai" value="no" checked>No
+        <br>
+        <br>
     </form>
     <button onclick="startGame()">Start Game</button>
+    <br>
+    <br>
     <div id='board'></div>
 </body>
 
@@ -23,9 +29,12 @@
     var buttons;
     var row;
     var col;
+    var ai;
 
     function startGame() {
         turn = 0;
+        var aiform = document.getElementById('ai');
+        ai = aiform.checked;
         row = document.getElementById('row').value;
         col = document.getElementById('col').value;
         if (col <= 100 && row <= 100) {
@@ -71,12 +80,49 @@
         var spots = spot.split(" ");
         buttons[spots[0]][spots[1]] = player;
         spots.push(player);
-        console.log(checkWin(spots));
+        //console.log(checkWin(spots));
         turn++;
+        if (ai && player == 1) playAI();
+    }
+
+    function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function randonSpot() {
+        var rndRow = getRndInteger(1,row);
+        var rndCol = getRndInteger(1,col);
+        if (buttons[rndCol][rndRow] == 0){
+            return rndCol + ' ' + rndRow;
+        } else {
+            return randonSpot();
+        }
+    }
+
+    function playAI() {
+        var defaultSpot = randonSpot();
+        var potentialSpot;
+        var countRow = 0;
+        for (var j = 1; j <= 1; j++) {
+            for (var i = 1; i <= row; i++) {
+                if (buttons[j][i] == 1) {
+                    countRow++;
+                } else {
+                    potentialSpot = j + " " + i;
+                }
+            }
+        }
+        if (row - countRow == 1) {
+            console.log(potentialSpot);
+            play(potentialSpot);
+        } else {
+            console.log(defaultSpot);
+            play(defaultSpot);
+        }
     }
 
     function checkWin(spots) {
-        console.clear();
+        //console.clear();
         var win = true;
         for (var i = 1; i <= row; i++) {
             //console.log(spots[0] + " " + i)
@@ -96,9 +142,9 @@
         if (!win) {
             if (row / col == 1) {
                 win = true;
-                for (var i = 1; i<= row; i++) {
-                    console.log(i + " " + buttons[i][i]);
-                    if (buttons[i][i] != spots[2]){
+                for (var i = 1; i <= row; i++) {
+                    //console.log(i + " " + buttons[i][i]);
+                    if (buttons[i][i] != spots[2]) {
                         return false;
                     }
                 }
@@ -117,6 +163,7 @@
     button {
         width: 50px;
         height: 50px;
+        color: #1ea757;
     }
 </style>
 
