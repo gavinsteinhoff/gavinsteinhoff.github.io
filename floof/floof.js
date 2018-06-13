@@ -33,22 +33,25 @@
 
             for (var o = 0; o < sentences; o++) {
                 var words = getRnd(5, 10);
+                
                 var sentence = getWord(1).toUpperCase();
 
                 for (var j = 0; j < words; j++) {
                     var char = getRnd(1, 7);
-                    switch (j) {
-                        case link:
-                            sentence += "<a href='#'>" + getWord(char) + '</a> ';
-                            break;
-                        case bold:
-                            sentence += "<b>" + getWord(char) + '</b> ';
-                            break;
-                        default:
-                            sentence += getWord(char) + ' ';
+                        sentence += getWord(char) + ' ';
                     }
                 }
                 sentence += getWord(5) + ". ";
+            
+                            
+                if (o==link) {
+                        sentence = sentence.replace (/^/,"<a href='#'>");
+                        sentence += "</a>;
+                }eles if(o==bold){
+                        sentence = sentence.replace (/^/,"<b>");
+                        sentence += "</a>;
+                }
+                
                 paragraph += sentence;
             }
             paragraph += "<br><br>";
