@@ -5,14 +5,15 @@
     <meta charset="utf-8">
     <title>Gavin Steinhoff</title>
     <meta name="description" content="Gavin Steinhoff's projects">
-    <meta name="author" content="SitePoint">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <meta name="author" content="Gavin Steinhoff">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
 <body>
+    <!-- Start Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="./">Gavin Steinhoff</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,7 +25,13 @@
                     <a class="nav-link" href="./">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="./floof">Floof JS Library</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="./game">Tic Tac Toe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./finalGrade">Final Grade Calculator</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./todo">ToDo List</a>
@@ -32,7 +39,23 @@
             </ul>
         </div>
     </nav>
+    <!-- End Navbar -->
 
+    <div class="jumbotron">
+        <h1 class="display-4">Gavin Steinhoff's Projects</h1>
+        <p class="lead">Here is where I keep all my html/css/js projects for you to browse.</p>
+    </div>
+
+    <hr />
+    <p class="floof"></p>
+    <hr />
+    <hr />
+    <p class="floof floof-x"></p>
+    <hr />
+    <p class="floof floof-md"></p>
+    <hr />
+    <p class="floof floof-lg"></p>
 
 </body>
+<script src="./floof.js"></script>
 </html>
