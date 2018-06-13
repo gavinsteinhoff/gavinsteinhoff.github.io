@@ -46,10 +46,10 @@
                             
                 if (o==link) {
                         sentence = sentence.replace (/^/,"<a href='#'>");
-                        sentence += "</a>;
+                        sentence += "</a>";
                 }eles if(o==bold){
                         sentence = sentence.replace (/^/,"<b>");
-                        sentence += "</a>;
+                        sentence += "</b>";
                 }
                 
                 paragraph += sentence;
