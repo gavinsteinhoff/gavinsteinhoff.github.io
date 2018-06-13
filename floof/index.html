@@ -1,1 +1,74 @@
+﻿<!doctype html>
 
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Floof</title>
+    <meta name="description" content="Floof Project">
+    <meta name="author" content="Gavin Steinhoff">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="jumbotron">
+        <h1 class="display-4">Floof</h1>
+        <p class="lead">Floof is a simple javascript library for generating sample text.</p>
+    </div>
+
+
+    <div class="row justify-content-center card-columns">
+        <div class="col-8">
+            <div class="card text-center border-primary">
+                <div class="card-header">
+                    You can easily add random text
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">&lt;p class="floof">&lt;p></h5>
+                    <p class="card-text text-left floof floof-sm"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-8">
+            <div class="card text-center border-primary">
+                <div class="card-header">
+                    You can easily add styled text
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">&lt;p class="floof floof-x">&lt;p></h5>
+                    <p class="card-text text-left floof floof-sm floof-x"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-8">
+            <div class="card text-center border-primary">
+                <div class="card-header">
+                    You can easily add long text
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">&lt;p class="floof floof-lg">&lt;p></h5>
+                    <p class="card-text text-left floof floof-lg"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-8">
+            <ul class="list-group">
+                <li class="list-group-item active">Every Floof Option</li>
+                <li class="list-group-item">"floof" - default, must include</li>
+                <li class="list-group-item">"floof-sm" - only one paragraph of floof</li>
+                <li class="list-group-item">"floof-md" - a few paragraphs of floof</li>
+                <li class="list-group-item">"floof-lg" - many paragraphs of floof</li>
+                <li class="list-group-item">"floof-x" - floof with bold and links, can be combined with sizes</li>
+            </ul>
+        </div>
+    </div>
+
+
+</body>
+<script src="./floof.js"></script>
+</html>
