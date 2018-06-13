@@ -38,26 +38,27 @@
 
                 for (var j = 0; j < words; j++) {
                     var char = getRnd(1, 7);
-                        sentence += getWord(char) + ' ';
-                    }
+                    sentence += getWord(char) + ' ';
                 }
+
                 sentence += getWord(5) + ". ";
-            
                             
                 if (o==link) {
-                        sentence = sentence.replace (/^/,"<a href='#'>");
-                        sentence += "</a>";
-                }eles if(o==bold){
-                        sentence = sentence.replace (/^/,"<b>");
-                        sentence += "</b>";
+                    sentence = sentence.replace (/^/,"<a href='#'>");
+                    sentence += "</a>";
+                } else if(o==bold) {
+                    sentence = sentence.replace (/^/,"<b>");
+                    sentence += "</b>";
                 }
-                
+
                 paragraph += sentence;
-            }
-            paragraph += "<br><br>";
+            }  
         }
+        paragraph += "<br><br>";
         floof.innerHTML = paragraph;
-    });
+    }
+        
+    );
 }, false);
 
 function getWord(char) {
