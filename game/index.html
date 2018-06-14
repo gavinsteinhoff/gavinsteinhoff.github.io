@@ -1,74 +1,248 @@
-﻿<!doctype html>
-
+﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <title>Floof</title>
-    <meta name="description" content="Floof Project">
-    <meta name="author" content="Gavin Steinhoff">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js" integrity="sha384-u/bQvRA/1bobcXlcEYpsEdFVK/vJs3+T+nXLsBYJthmdBuavHvAW6UsmqO2Gd/F9"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div class="jumbotron">
-        <h1 class="display-4">Floof</h1>
-        <p class="lead">Floof is a simple javascript library for generating sample text.</p>
-    </div>
-
-
-    <div class="row justify-content-center card-columns">
-        <div class="col-8">
-            <div class="card text-center border-primary">
-                <div class="card-header">
-                    You can easily add random text
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">&lt;p class="floof">&lt;p></h5>
-                    <p class="card-text text-left floof floof-sm"></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-8">
-            <div class="card text-center border-primary">
-                <div class="card-header">
-                    You can easily add styled text
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">&lt;p class="floof floof-x">&lt;p></h5>
-                    <p class="card-text text-left floof floof-sm floof-x"></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-8">
-            <div class="card text-center border-primary">
-                <div class="card-header">
-                    You can easily add long text
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">&lt;p class="floof floof-lg">&lt;p></h5>
-                    <p class="card-text text-left floof floof-lg"></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-8">
-            <ul class="list-group">
-                <li class="list-group-item active">Every Floof Option</li>
-                <li class="list-group-item">"floof" - default, must include</li>
-                <li class="list-group-item">"floof-sm" - only one paragraph of floof</li>
-                <li class="list-group-item">"floof-md" - a few paragraphs of floof</li>
-                <li class="list-group-item">"floof-lg" - many paragraphs of floof</li>
-                <li class="list-group-item">"floof-x" - floof with bold and links, can be combined with sizes</li>
+    <!-- Start Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="./">Gavin Steinhoff</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="../">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../floof">Floof JS Library</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="../game">Tic Tac Toe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../finalGrade">Final Grade Calculator</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../todo">ToDo List</a>
+                </li>
             </ul>
         </div>
-    </div>
-
-
+    </nav>
+    <!-- End Navbar -->
+    <form>
+        <input type="number" id="row" min='1' max='100' value="3">
+        <input type="number" id="col" min='1' max='100' value="3"> Play with AI?
+        <input type="radio" id='ai' name="ai" value="yes">Yes
+        <input type="radio" name="ai" value="no" checked>No
+        <br>
+        <br>
+    </form>
+    <button onclick="startGame()">Start Game</button>
+    <span id='winner'></span>
+    <br>
+    <br>
+    <div id='board'></div>
 </body>
-<script src="./floof.js"></script>
+
+<script>
+    var turn;
+    var buttons;
+    var row;
+    var col;
+    var ai;
+    function startGame() {
+        turn = 0;
+        var aiform = document.getElementById('ai');
+        ai = aiform.checked;
+        row = document.getElementById('row').value;
+        col = document.getElementById('col').value;
+        document.getElementById('winner').innerHTML = "";
+        if (col <= 100 && row <= 100) {
+            buttons = {};
+            for (var j = 1; j <= col; j++) {
+                buttons[j] = [];
+                for (var i = 1; i <= row; i++) {
+                    buttons[j][i] = 0;
+                }
+            }
+            var board = document.getElementById('board');
+            createBoard(board);
+        }
+    }
+    function createBoard(b) {
+        b.innerHTML = "";
+        for (var j = 1; j <= col; j++) {
+            for (var i = 1; i <= row; i++) {
+                var button = document.createElement("BUTTON");
+                button.setAttribute('onclick', "play('" + j + " " + i + "')");
+                button.setAttribute('id', j + " " + i);
+                button.setAttribute('class', "playButton");
+                button.innerHTML = "&nbsp;";
+                b.appendChild(button);
+            }
+            b.innerHTML += "</br>";
+        }
+    }
+    function play(spot) {
+        var player;
+        button = document.getElementById(spot);
+        button.disabled = true;
+        if (turn % 2 == 0) {
+            button.innerHTML = "X";
+            player = 1;
+        } else {
+            button.innerHTML = "O";
+            player = 2;
+        }
+        var spots = spot.split(" ");
+        buttons[spots[0]][spots[1]] = player;
+        spots.push(player);
+        if (checkWin(spots)) {
+            win(player);
+        } else {
+            turn++;
+            if (ai && player == 1) play(playAI());
+        }
+    }
+    function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    function randonSpot() {
+        var rndRow = getRndInteger(1, row);
+        var rndCol = getRndInteger(1, col);
+        if (buttons[rndCol][rndRow] == 0) {
+            return rndCol + ' ' + rndRow;
+        } else {
+            return randonSpot();
+        }
+    }
+    function playAI() {
+        var defaultSpot = randonSpot();
+        var winRow = findPlayRow(2);
+        var blockRow = findPlayRow(1);
+        console.log(findPlayCol(1));
+        if (winRow != false) {
+            return winRow;
+        } else if (blockRow != false) {
+            return blockRow;
+        }
+        return (defaultSpot);
+    }
+    function findPlayCol(player) {
+        console.clear();
+        var colCount = []
+        var colEmpty = [];
+        for (var t = 0; t <= col; t++) {
+            colCount.push(0);
+            colEmpty.push(0);
+        }
+        for (var i = 1; i <= row; i++) {
+            for (var j = 1; j <= col; j++) {
+                if (buttons[j][i] == player) {
+                    rowCount[i]++;
+                } else if (buttons[j][i] == 0) {
+                    rowEmpty[i] = i;
+                }
+            }
+        }
+    }
+    function findPlayRow(player) {
+        var rowCount = []
+        var rowEmpty = [];
+        for (var t = 0; t <= row; t++) {
+            rowCount.push(0);
+            rowEmpty.push(0);
+        }
+        for (var j = 1; j <= col; j++) {
+            for (var i = 1; i <= row; i++) {
+                if (buttons[j][i] == player) {
+                    rowCount[j]++;
+                } else if (buttons[j][i] == 0) {
+                    rowEmpty[j] = i;
+                }
+            }
+        }
+        var greatRow = Math.max.apply(null, rowCount);
+        var colAt = rowCount.indexOf(greatRow);
+        var rowAt = rowEmpty[rowCount.indexOf(greatRow)]
+        if (row - greatRow == 1 && rowAt != 0) {
+            return (colAt + " " + rowAt);
+        } else {
+            return false;
+        }
+    }
+    function checkWin(spots) {
+        //console.clear();
+        var win = true;
+        for (var i = 1; i <= row; i++) {
+            //console.log(spots[0] + " " + i)
+            if (buttons[spots[0]][i] != spots[2]) {
+                win = false;
+            }
+        }
+        if (!win) {
+            win = true;
+            for (var j = 1; j <= col; j++) {
+                if (buttons[j][spots[1]] != spots[2]) {
+                    //console.log(j + " " + spots[1])
+                    win = false;
+                }
+            }
+        }
+        if (!win) {
+            if (row / col == 1) {
+                win = true;
+                for (var i = 1; i <= row; i++) {
+                    //console.log(i + " " + buttons[i][i]);
+                    if (buttons[i][i] != spots[2]) {
+                        win = false;
+                    }
+                }
+            }
+        }
+        if (!win) {
+            if (row / col == 1) {
+                win = true;
+                cols = 0;
+                for (var i = row; i >= 1; i--) {
+                    cols++;
+                    //console.log(i + " " + buttons[i][i]);
+                    if (buttons[cols][i] != spots[2]) {
+                        win = false;
+                    }
+                }
+            }
+        }
+        return win;
+    }
+    function win(player) {
+        document.getElementById('winner').innerHTML = "Player " + player + " Wins!"
+        var btns = document.getElementsByClassName('playButton');
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].disabled = true;
+        }
+    }
+</script>
+
+<style>
+    button {
+        width: 50px;
+        height: 50px;
+        color: #1ea757;
+    }
+</style>
+
 </html>
