@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <input type="number" id="game-id" />
+    <br />
+    <button onclick="joinGame()" type="submit">Join Game</button>
+    <div id="postJoin">
+        <br />
+        <input type="text" id="name" />
+        <br />
+        <button onclick="addName()" type="submit">Add Name</button>
+        <br />
+        <div id="names"></div>
+    </div>
+
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAzcrUf8EtQ8K_NvSeO0cM5vlfVFnTGUzI",
+        authDomain: "santa-68dfc.firebaseapp.com",
+        databaseURL: "https://santa-68dfc.firebaseio.com",
+        projectId: "santa-68dfc",
+        storageBucket: "santa-68dfc.appspot.com",
+        messagingSenderId: "280719009895"
+    };
+    firebase.initializeApp(config);
+    var database = firebase.database();
+    var ref = 'games/game/';
+
+    function addName() {
+        var key = database.ref(ref + '/names').push().key;
+        name = document.getElementById('name').value;
+        database.ref(ref + '/names/').set({
+            document.getElementById('name').value
+        });
+    }
+
+    function joinGame() {
+        ref += document.getElementById('game-id').value;
+        database.ref(ref + '/names').on('value', (function (snapshot) {
+            displayNames(snapshot.val());
+        }));
+    }
+
+    function displayNames(names) {
+        output = document.getElementById('names');
+        output.innerHTML = "";
+        names.forEach(function (name) {
+            output.innerHTML += name + "<br />";
+        });
+    }
+
+
+
+</script>
+
+
+</html>

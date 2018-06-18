@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    <div id="preGame">
+        <input type="text" id="name" />
+        <br />
+        <button onclick="createGame()" type="submit">Create Game</button>
+        <br />
+    </div>
+    <div id="postGame">
+        <button onclick="generate()" type="submit" id="submit">Generate Santas</button>
+        <div id="game-id"></div>
+        <div id="names"></div>
+    </div>
+
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAzcrUf8EtQ8K_NvSeO0cM5vlfVFnTGUzI",
+        authDomain: "santa-68dfc.firebaseapp.com",
+        databaseURL: "https://santa-68dfc.firebaseio.com",
+        projectId: "santa-68dfc",
+        storageBucket: "santa-68dfc.appspot.com",
+        messagingSenderId: "280719009895"
+    };
+    firebase.initializeApp(config);
+    var database = firebase.database();
+
+    //var fruits = ['Apple', 'Banana'];
+
+
+    function createGame() {
+        var key = makeKey();
+        database.ref('games/game/' + key).set({
+            names: [document.getElementById('name').value]
+        });
+        document.getElementById('game-id').innerHTML = key;
+    }
+
+    function makeKey() {
+        return (Math.floor(Math.random() * (9999 + 1)) + 0).toString();
+    }
+
+    function generate() {
+
+
+        database.ref('games/game/' + document.getElementById('game-id').value + '/names').on('value', (function (snapshot) {
+            displayNames(snapshot.val());
+        }));
+
+
+    }
+
+    function displayNames(names) {
+        output = document.getElementById('names');
+        output.innerHTML = "";
+        names.forEach(function (name) {
+            output.innerHTML += name + "<br />";
+        });
+    }
+
+
+
+</script>
+
+
+</html>
