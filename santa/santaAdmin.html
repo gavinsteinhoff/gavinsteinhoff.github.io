@@ -14,14 +14,17 @@
         <br />
     </div>
     <div id="postGame">
-        <button onclick="generate()" type="submit" id="submit">Generate Santas</button>
+        <button onclick="startGen()" type="submit" id="submit">Generate Santas</button>
         <div id="game-id"></div>
         <div id="names"></div>
+        <div id="result"></div>
     </div>
 
 </body>
 
-<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
+<script src="./utils.js"></script>
 <script>
     // Initialize Firebase
     var config = {
@@ -35,38 +38,43 @@
     firebase.initializeApp(config);
     var database = firebase.database();
 
-    //var fruits = ['Apple', 'Banana'];
-
 
     function createGame() {
-        var key = makeKey();
-        database.ref('games/game/' + key).set({
-            names: [document.getElementById('name').value]
-        });
-        document.getElementById('game-id').innerHTML = key;
+        game.id = getRND(9999).toString();
+        database.ref(game.getRef() + "/names/" + document.getElementById('name').value).set(true);
+        document.getElementById('game-id').innerHTML = game.id;
+        displayNames();
     }
 
-    function makeKey() {
-        return (Math.floor(Math.random() * (9999 + 1)) + 0).toString();
-    }
 
-    function generate() {
-
-
-        database.ref('games/game/' + document.getElementById('game-id').value + '/names').on('value', (function (snapshot) {
-            displayNames(snapshot.val());
-        }));
-
-
-    }
-
-    function displayNames(names) {
-        output = document.getElementById('names');
-        output.innerHTML = "";
+    function generate(people) {
+        var names = [];
+        for (var key in people) {
+            names.push(key);
+        }
+        if (names.length % 2 == 1) {
+            names.push(names[0]);
+        }
+        var names2 = names;
         names.forEach(function (name) {
-            output.innerHTML += name + "<br />";
+            k = getRND(names2.length - 1);
+            document.getElementById('result').innerHTML += name + names2[k] + '<br />';
+            names2.splice(k, 1);
+
         });
     }
+
+    function getRND(Max) {
+        return (Math.floor(Math.random() * (Max + 1)) + 0);
+    }
+
+    function startGen() {
+        database.ref(game.getRef() + '/names/').once('value').then(function (snapshot) {
+            generate(snapshot.val());
+        });
+    }
+
+
 
 
 

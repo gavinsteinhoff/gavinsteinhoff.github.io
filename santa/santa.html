@@ -6,21 +6,28 @@
     <title></title>
 </head>
 <body>
-    <input type="number" id="game-id" />
-    <br />
-    <button onclick="joinGame()" type="submit">Join Game</button>
-    <div id="postJoin">
+    <div id="preJoin">
+        <input type="number" id="game-id" />
+        <br />
+        <button onclick="joinGame()" type="submit">Join Game</button>
+    </div>
+    <input type="button" value="Leave Game" onclick="window.location.reload()" />
+    <div id="postJoin" style="display: none">
         <br />
         <input type="text" id="name" />
         <br />
-        <button onclick="addName()" type="submit">Add Name</button>
-        <br />
-        <div id="names"></div>
+        <button onclick="add()" type="submit">Add Name</button>
     </div>
+    <div id="postAdd" style="display: none">
+        <button onclick="leave()" type="submit">Leave</button>
+    </div>
+    <br />
+    <div id="names"></div>
 
 </body>
-
-<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
+<script src="./utils.js"></script>
 <script>
     // Initialize Firebase
     var config = {
@@ -33,29 +40,50 @@
     };
     firebase.initializeApp(config);
     var database = firebase.database();
-    var ref = 'games/game/';
 
-    function addName() {
-        var key = database.ref(ref + '/names').push().key;
-        name = document.getElementById('name').value;
-        database.ref(ref + '/names/').set({
-            document.getElementById('name').value
-        });
-    }
+
 
     function joinGame() {
-        ref += document.getElementById('game-id').value;
-        database.ref(ref + '/names').on('value', (function (snapshot) {
-            displayNames(snapshot.val());
-        }));
+        game.id = document.getElementById('game-id').value;
+        displayNames();
+        displayPreJoin("none");
+        displayPostJoin("block");
     }
 
-    function displayNames(names) {
-        output = document.getElementById('names');
-        output.innerHTML = "";
-        names.forEach(function (name) {
-            output.innerHTML += name + "<br />";
+
+    function addName() {
+        database.ref(game.getRef() + "/names/" + game.name).set(true);
+        displayPostJoin("none");
+        displayPostAdd("block");
+    }
+
+    function leave() {
+        database.ref(game.getRef() + "/names/" + game.name).remove();
+        displayPostJoin("block");
+        displayPostAdd("none");
+    }
+
+    function add() {
+        game.name = document.getElementById('name').value;
+        checkIfExists(game.name);
+    }
+
+    function checkIfExists(name) {
+        database.ref(game.getRef() + '/names/' + name).once('value').then(function (snapshot) {
+            if (snapshot.val() != true) addName();
         });
+    }
+
+    function displayPreJoin(display) {
+        document.getElementById("preJoin").style.display = display;
+    }
+
+    function displayPostAdd(display) {
+        document.getElementById("postAdd").style.display = display;
+    }
+
+    function displayPostJoin(display) {
+        document.getElementById('postJoin').style.display = display;
     }
 
 
