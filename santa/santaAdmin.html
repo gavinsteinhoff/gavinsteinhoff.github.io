@@ -14,6 +14,7 @@
         <br />
     </div>
     <div id="postGame">
+        <button onclick="deleteGame()" type="submit">Delete Game</button>
         <button onclick="startGen()" type="submit" id="submit">Generate Santas</button>
         <div id="game-id"></div>
         <div id="names"></div>
@@ -41,7 +42,11 @@
 
     function createGame() {
         game.id = getRND(9999).toString();
-        database.ref(game.getRef() + "/names/" + document.getElementById('name').value).set(true);
+        game.name = document.getElementById("name").value;
+        addName();
+        for (var i = 0; i <= 10; i++) {
+            database.ref(game.getRef() + "/names/" + i.toString()).set(true);
+        }
         document.getElementById('game-id').innerHTML = game.id;
         displayNames();
     }
@@ -49,19 +54,27 @@
 
     function generate(people) {
         var names = [];
+        var names2 = [];
         for (var key in people) {
             names.push(key);
+            names2.push(key);
         }
         if (names.length % 2 == 1) {
-            names.push(names[0]);
+            //names2.push(names[0]);
         }
-        var names2 = names;
         names.forEach(function (name) {
-            k = getRND(names2.length - 1);
-            document.getElementById('result').innerHTML += name + names2[k] + '<br />';
+            var k;
+            do {
+                k = getRND(names2.length - 1);
+            } while (names2[k] == name);
+            document.getElementById('result').innerHTML += "<b>" + name + "</b> will buy a gift for <b>" + names2[k] + '</b><br />';
             names2.splice(k, 1);
-
         });
+    }
+
+    function deleteGame() {
+        database.ref(game.getRef()).remove();
+        document.getElementById('game-id').innerHTML = "";
     }
 
     function getRND(Max) {

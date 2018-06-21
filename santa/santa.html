@@ -52,7 +52,7 @@
 
 
     function addName() {
-        database.ref(game.getRef() + "/names/" + game.name).set(true);
+        addName();
         displayPostJoin("none");
         displayPostAdd("block");
     }

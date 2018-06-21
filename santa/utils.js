@@ -8,6 +8,10 @@ var game = {
     }
 }
 
+function addName() {
+    database.ref(game.getRef() + "/names/" + game.name).set(true);
+}
+
 function displayNames() {
     database.ref(game.getRef() + '/names').on('value', (function (snapshot) {
         names = snapshot.val();
