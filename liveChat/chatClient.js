@@ -1,4 +1,11 @@
-﻿var chat = {
+﻿firebase.auth().onAuthStateChanged(function (user) {
+    if (!user) {
+        $(location).attr('href', './login.html')
+    }
+});
+
+
+var chat = {
     id: null,
     ref: 'rooms/',
     name: null,
