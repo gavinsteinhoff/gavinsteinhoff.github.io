@@ -7,20 +7,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
 </head>
 <body>
 
-    <!--<div id="chatRoom"></div>-->
-
-
-
-
+    <div id="login" style="width:20%">
+        <form>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input required type="email" id="email" class="form-control" placeholder="Email" />
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="pass">Password</label>
+                <input required type="password" class="form-control" id="pass" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <button type="button" onclick="login()" class="btn btn-primary">Sign In</button>
+                <button type="button" onclick="Register()" class="btn btn-primary">Register</button>
+            </div>
+        </form>
+    </div>
 
 
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
     <script src="./util.js"></script>
-    <script src="./chatClient.js"></script>
+    <script src="./chatClientLogin.js"></script>
 </body>
 </html>
