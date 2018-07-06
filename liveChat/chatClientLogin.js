@@ -11,7 +11,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         if(newUser) {
             var user = firebase.auth().currentUser;
             user.updateProfile({
-              displayName: document.getElementById('dn').value
+                displayName: document.getElementById('dn').value
             }).then(function() {
                 $(location).attr('href', './index.html')
             }).catch(function(error) {
@@ -19,6 +19,7 @@ firebase.auth().onAuthStateChanged(function (user) {
                 console.log(error.errorCode);
             });
         }
+        $(location).attr('href', './index.html')
     } else {
     }
 });

@@ -14,36 +14,13 @@ var chat = {
     }
 }
 
+base = document.getElementById('chat');
 
-//Create Chat Room GUI
-var base = document.getElementById('chatRoom');
-var inputRoomId = document.createElement("input");
-inputRoomId.type = "text";
-inputRoomId.placeholder = "Enter the room id";
-base.appendChild(inputRoomId);
-var btnRoomId = document.createElement('button');
-btnRoomId.onclick = joinRoom;
-btnRoomId.appendChild(document.createTextNode("Enter Room"));
-base.appendChild(btnRoomId);
-var chatRoom = document.createElement("div");
-base.appendChild(chatRoom);
-var inputChat = document.createElement("input");
-inputRoomId.type = "text";
-inputChat.style.display = "none";
-base.appendChild(inputChat);
-var btnChat = document.createElement('button');
-btnChat.onclick = message;
-btnChat.appendChild(document.createTextNode("Chat"));
-btnChat.style.display = "none";
-base.appendChild(btnChat);
 
 //Join Chat Room
 function joinRoom() {
-    btnRoomId.style.display = 'none';
-    inputRoomId.style.display = 'none';
-    inputChat.style.display = "block";
-    btnChat.style.display = "block";
-    chat.id = inputRoomId.value;
+    document.getElementById('roomChoice').style.display = 'none';
+    chat.id = document.getElementById('inputRoomId').value;
     var user = firebase.auth().currentUser;
     user.providerData.forEach(function (profile) {
         console.log(profile.displayName);
@@ -54,32 +31,35 @@ function joinRoom() {
 
 //Display Chat
 function startChat() {
+    chain = document.createElement('div');
+    chain.className = "ui comments";
+    base.appendChild(chain);
     database.ref(chat.getRef() + '/msg').on('value', (function (snapshot) {
         names = snapshot.val();
-        chatRoom.innerHTML = "";
+        chain.innerHTML = "";
         for (var key in names) {
-            //output.innerHTML += names[key]['Gavin'] + "<br />";
             var user = names[key]['username'];
             var msg = names[key]['message'];
-            //chatRoom.innerHTML += user + ": " + msg + "<br />";
-            var card = document.createElement('div');
-            card.className = "card";
-            var cardbody = document.createElement('div');
-            cardbody.className = "card-body";
-            card.appendChild(cardbody);
-            var cardtitle = document.createElement('h5');
-            cardtitle.classList = "card-title";
-            var cardtitletext = document.createTextNode(user);
-            cardtitle.appendChild(cardtitletext);
-            cardbody.appendChild(cardtitle);
-            var cardText = document.createElement("p");
-            cardText.className = "card-text";
-            var cartTextText = document.createTextNode(msg);
-            cardText.appendChild(cartTextText);
-            cardbody.appendChild(cardText);
-            chatRoom.appendChild(card);
+            chain.appendChild(createMsg(user, msg));
         }
     }));
+}
+
+function createMsg(user,msg) {
+    var base = document.createElement('div');
+    base.className = "comment";
+    var content = document.createElement('div');
+    content.classList = "content";
+    var author = document.createElement('a');
+    author.className = "author";
+    author.innerHTML = user;
+    var text = document.createElement('div');
+    text.className = "text";
+    text.innerHTML = msg;
+    content.appendChild(author);
+    content.appendChild(text);
+    base.appendChild(content);
+    return base;
 }
 
 //New Message
@@ -92,3 +72,10 @@ function message() {
     });
     inputChat.value = "";
 }
+
+$('#inputChat').keypress(function (event) {
+    if (event.keyCode == '13') {
+        event.preventDefault();
+        message();
+    }
+});
