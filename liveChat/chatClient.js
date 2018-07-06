@@ -20,6 +20,7 @@ base = document.getElementById('chat');
 //Join Chat Room
 function joinRoom() {
     document.getElementById('roomChoice').style.display = 'none';
+    document.getElementById('textInput').style.display = 'block';
     chat.id = document.getElementById('inputRoomId').value;
     var user = firebase.auth().currentUser;
     user.providerData.forEach(function (profile) {
