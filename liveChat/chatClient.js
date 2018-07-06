@@ -21,10 +21,6 @@ var inputRoomId = document.createElement("input");
 inputRoomId.type = "text";
 inputRoomId.placeholder = "Enter the room id";
 base.appendChild(inputRoomId);
-var inputName = document.createElement("input");
-inputName.type = "text";
-inputName.placeholder = "Enter you name";
-base.appendChild(inputName);
 var btnRoomId = document.createElement('button');
 btnRoomId.onclick = joinRoom;
 btnRoomId.appendChild(document.createTextNode("Enter Room"));
@@ -41,33 +37,18 @@ btnChat.appendChild(document.createTextNode("Chat"));
 btnChat.style.display = "none";
 base.appendChild(btnChat);
 
-function login() {
-    firebase.auth().signInWithEmailAndPassword(document.getElementById('email').value, document.getElementById('pass').value).catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-    });
-}
-
-function Register() {
-    firebase.auth().createUserWithEmailAndPassword(document.getElementById('email').value, document.getElementById('pass').value).catch(function (error) {
-        // Handle Errors here.
-        alert(error.code);
-        alert(error.message);
-        // ...
-    });
-}
-
 //Join Chat Room
 function joinRoom() {
     btnRoomId.style.display = 'none';
     inputRoomId.style.display = 'none';
-    inputName.style.display = 'none';
     inputChat.style.display = "block";
     btnChat.style.display = "block";
     chat.id = inputRoomId.value;
-    chat.name = inputName.value;
+    var user = firebase.auth().currentUser;
+    user.providerData.forEach(function (profile) {
+        console.log(profile.displayName);
+        chat.name = profile.displayName;
+      });
     startChat();
 }
 
