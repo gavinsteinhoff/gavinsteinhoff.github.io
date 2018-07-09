@@ -11,27 +11,34 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
 </head>
 <body class="bg-light">
-    
+
     <div style="padding-top: 50px">
-    <div class="card mx-auto" style="width: 25%;">
-        <h1 class="text-center font-weight-normal" style="padding-top: 10px">Login</h1>
-        <div class="card-body">
-            <form>
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input required type="email" id="email" class="form-control" placeholder="Email" />
-                </div>
-                <div class="form-group">
-                    <label for="pass">Password</label>
-                    <input required type="password" class="form-control" id="pass" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <button type="button" onclick="login()" class="btn btn-primary">Sign In</button>
-                    <button type="button" onclick="$(location).attr('href', './register.html')" class="btn btn-primary">Looking to Create an Account?</button>
-                </div>
-            </form>
+        <div class="card mx-auto" style="width: 25%;">
+            <h1 class="text-center font-weight-normal" style="padding-top: 10px">Login</h1>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="dn">Display Name:</label>
+                        <input required type="text" class="form-control" id="dn" placeholder="Display Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input required type="email" id="email" class="form-control" placeholder="Email" />
+                    </div>
+                    <div class="form-group">
+                        <label for="pass">Password</label>
+                        <input required type="password" class="form-control" id="psw" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="pass">Repeat Password</label>
+                        <input required type="password" class="form-control" id="psw2" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" onclick="Register()" class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 
 
 
@@ -42,6 +49,6 @@
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
     <script src="./util.js"></script>
-    <script src="./chatClientLogin.js"></script>
+    <script src="./chatClientReg.js"></script>
 </body>
 </html>
