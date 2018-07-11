@@ -14,17 +14,14 @@ var chat = {
     }
 }
 
-base = document.getElementById('chat');
+var base = $('#chat');
 
 
 //Join Chat Room
 function joinRoom() {
-    document.getElementById('roomChoice').style.display = 'none';
-    document.getElementById('textInput').style.display = 'block';
     chat.id = document.getElementById('inputRoomId').value;
     var user = firebase.auth().currentUser;
     user.providerData.forEach(function (profile) {
-        console.log(profile.displayName);
         chat.name = profile.displayName;
       });
     startChat();
@@ -32,34 +29,24 @@ function joinRoom() {
 
 //Display Chat
 function startChat() {
-    chain = document.createElement('div');
-    chain.className = "ui comments";
-    base.appendChild(chain);
+    var chain = $('<div></div>');
+    base.append(chain);
     database.ref(chat.getRef() + '/msg').on('value', (function (snapshot) {
-        names = snapshot.val();
-        chain.innerHTML = "";
+        var names = snapshot.val();
+        chain.empty();
         for (var key in names) {
             var user = names[key]['username'];
             var msg = names[key]['message'];
-            chain.appendChild(createMsg(user, msg));
+            chain.append(createMsg(user, msg));
         }
     }));
 }
 
 function createMsg(user,msg) {
-    var base = document.createElement('div');
-    base.className = "comment";
-    var content = document.createElement('div');
-    content.classList = "content";
-    var author = document.createElement('a');
-    author.className = "author";
-    author.innerHTML = user;
-    var text = document.createElement('div');
-    text.className = "text";
-    text.innerHTML = msg;
-    content.appendChild(author);
-    content.appendChild(text);
-    base.appendChild(content);
+    var base = $("<p></p>");
+    var author = $('<strong>').append(user, "<br />");
+    base.append(author, msg);
+    $('#test').append(base);
     return base;
 }
 
