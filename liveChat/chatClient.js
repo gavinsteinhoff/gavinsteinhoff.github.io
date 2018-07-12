@@ -1,11 +1,4 @@
-﻿firebase.auth().onAuthStateChanged(function (user) {
-    if (!user) {
-        $(location).attr('href', './login.html')
-    }
-});
-
-
-var chat = {
+﻿var chat = {
     id: null,
     ref: 'rooms/',
     name: null,
@@ -16,14 +9,24 @@ var chat = {
 
 var base = $('#chat');
 
+firebase.auth().onAuthStateChanged(function (user) {
+    if (!user) {
+        $(location).attr('href', './login.html')
+    } else {
+        user.providerData.forEach(function (profile) {
+            chat.name = profile.displayName;
+        });
+        chat.id = "Welcome";
+        startChat();
+    }
+});
+
+
+
 
 //Join Chat Room
 function joinRoom() {
     chat.id = document.getElementById('inputRoomId').value;
-    var user = firebase.auth().currentUser;
-    user.providerData.forEach(function (profile) {
-        chat.name = profile.displayName;
-      });
     startChat();
 }
 
