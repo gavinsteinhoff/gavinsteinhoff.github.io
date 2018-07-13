@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <div class="progress">
+        <div class="progress-bar" id="bar" role="progressbar" style="width: 0%" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+
+    <script>
+
+        var speed = 0;
+        var going = false;
+        var cc = 0; 
+
+
+        window.setInterval(game, 200);
+
+        function game() {
+            $("#bar").css('width', speed + "%");
+            console.log(Math.round(speed));
+            if (speed > 0 && going == false) {
+                speed -= .5;
+            }
+            if (cc > 0) {
+                while (speed < cc) {
+                    accelerate()
+                };
+            }
+            going = false;
+        }
+
+        function accelerate() {
+            speed += .1;
+            going = true;
+        }
+
+        $(document).keypress(function (e) {
+            if (e.which == 113) {
+                if (cc > 0) cc = 0; else cc = speed;
+            }
+        });
+
+        $(document).keydown(function (e) {
+            if (e.which == 87) {
+                accelerate();
+                cc = 0;
+            }
+        });
+    </script>
+
+</body>
+</html>
