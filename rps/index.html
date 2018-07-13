@@ -67,6 +67,26 @@
         var players = [null, null];
         var wins = [0, 0];
 
+        $(document).ready(function () {
+            breath();
+        });
+
+        function breath() {
+            $('#rock').animate({ fontSize: '+=.5em' }, 800, function () {
+                $('#rock').animate({ fontSize: '-=.5em' }, 800, function () {
+                    breath()
+                });
+            });
+            $('#paper').animate({ fontSize: '+=.5em' }, 800, function () {
+                $('#paper').animate({ fontSize: '-=.5em' }, 800, function () {
+                });
+            });
+            $('#scissors').animate({ fontSize: '+=.5em' }, 800, function () {
+                $('#scissors').animate({ fontSize: '-=.5em' }, 800, function () {
+                });
+            });
+        }
+
         $('#rock').hover(function () {
             $(this).animate({ fontSize: "7em" });
         }, function () {
