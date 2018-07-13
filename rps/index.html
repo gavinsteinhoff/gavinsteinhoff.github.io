@@ -68,39 +68,64 @@
         var wins = [0, 0];
 
         $(document).ready(function () {
-            breath();
+            breathRock();
+            breathPaper();
+            breathSci();
         });
 
-        function breath() {
-            $('#rock').animate({ fontSize: '+=.5em' }, 800, function () {
-                $('#rock').animate({ fontSize: '-=.5em' }, 800, function () {
-                    breath()
+        var rockHover = false, paperHover = false, sciHover = false;
+
+        function breathRock() {
+            if (!rockHover) {
+                $('#rock').animate({ fontSize: '+=.5em' }, 800, function () {
+                    $('#rock').animate({ fontSize: '-=.5em' }, 800, function () {
+                        breathRock()
+                    });
                 });
-            });
-            $('#paper').animate({ fontSize: '+=.5em' }, 800, function () {
-                $('#paper').animate({ fontSize: '-=.5em' }, 800, function () {
+            }
+        }
+        function breathPaper() {
+            if (!paperHover) {
+                $('#paper').animate({ fontSize: '+=.5em' }, 800, function () {
+                    $('#paper').animate({ fontSize: '-=.5em' }, 800, function () {
+                        breathPaper();
+                    });
                 });
-            });
-            $('#scissors').animate({ fontSize: '+=.5em' }, 800, function () {
-                $('#scissors').animate({ fontSize: '-=.5em' }, 800, function () {
+            }
+        }
+        function breathSci() {
+            if (!sciHover) {
+                $('#scissors').animate({ fontSize: '+=.5em' }, 800, function () {
+                    $('#scissors').animate({ fontSize: '-=.5em' }, 800, function () {
+                        breathSci();
+                    });
                 });
-            });
+            }
         }
 
         $('#rock').hover(function () {
+            rockHover = true;
             $(this).animate({ fontSize: "7em" });
         }, function () {
+            rockHover = false;
+            breathRock();
             $(this).animate({ fontSize: "5em" });
         });
         $('#paper').hover(function () {
+            paperHover = true;
             $(this).animate({ fontSize: "7em" });
         }, function () {
             $(this).animate({ fontSize: "5em" });
+            paperHover = false;
+            breathPaper();
         });
         $('#scissors').hover(function () {
+            sciHover = true;
             $(this).animate({ fontSize: "7em" });
         }, function () {
             $(this).animate({ fontSize: "5em" });
+            sciHover = false;
+            breathSci();
         });
 
         $("#rock").click(function () {
