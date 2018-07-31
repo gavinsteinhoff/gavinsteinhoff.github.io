@@ -1,0 +1,100 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <title>Hello, world!</title>
+</head>
+<body class="" style="background-color:#FFFAFA">
+
+    <p>Select local CSV File:</p>
+    <input id="csv" type="file">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+
+
+    <script>
+        var fileInput = document.getElementById("csv");
+        readFile = function () {
+            var reader = new FileReader();
+            reader.readAsText(fileInput.files[0]);
+            reader.onload = function () {
+                handleData(reader.result);
+            };
+        };
+        fileInput.addEventListener('change', readFile);
+
+
+
+
+
+        function handleData(data) {
+            var lines = data.split("\n");
+            statementData.open = lines[0].split(",")[4];
+
+            var lastLine = lines[lines.length - 2].split(",");
+            statementData.close = lastLine[4];
+
+            $.each(lines, function (key, line) {
+                words = line.split(",");
+                words = ["-0", "-1", '-2', '3', '-4','+5'];
+
+                if (!words[3].includes("-") && !words[3].includes("+") && words[3] != "") {
+                    $.each(words, function (key, word) {
+                        console.log(word);
+                    })
+                    words.slice(3, 1);
+                    //while (!words[3].includes("-") && !words[3].includes("+") && words[3] != "") {
+                    //    words[2] += words[3];
+                    //    words.slice(3, 1);
+                    //}
+                    $.each(words, function (key, word) {
+                        console.log(word);
+                    })
+                }
+
+                statementData.transaction.push({
+                    date: words[0],
+                    desc: words[2],
+                    amount: words[3],
+                    balance: words[4]
+                })
+            });
+
+
+
+
+
+
+
+            //test();
+        }
+
+        function test() {
+            console.log(statementData.open);
+            console.log(statementData.close);
+            $.each(statementData.transaction, function (key, value) {
+                console.log(value.amount);
+            });
+        }
+
+        var statementData = {
+            open: 0,
+            close: 0,
+            transaction: []
+        }
+
+    </script>
+
+
+
+</body>
+</html>
