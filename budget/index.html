@@ -13,84 +13,100 @@
     <p>Select local CSV File:</p>
     <input id="csv" type="file">
 
+    <svg width="310" height="1000" id="graph"></svg>
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
+    <script src="./papaparse.min.js"></script>
+
 
 
     <script>
+        var statements = [];
         var fileInput = document.getElementById("csv");
         readFile = function () {
             var reader = new FileReader();
             reader.readAsText(fileInput.files[0]);
             reader.onload = function () {
-                handleData(reader.result);
+                var data = (Papa.parse(reader.result, {
+                    skipEmptyLines: true
+                }).data);
+                var open = data[0][4];
+                var close = data[data.length - 1][4]
+                var interest = data[data.length - 2][3];
+                data.shift();
+                data.pop();
+                data.pop();
+                var tran = [];
+                $.each(data, function (key, value) {
+                    tran.push(new Transaction(value[0], value[2], value[3], value[4]))
+                })
+                statements.push(new Statement(open, close, interest, tran));
+                //test();
+                graph();
             };
         };
         fileInput.addEventListener('change', readFile);
 
-
-
-
-
-        function handleData(data) {
-            var lines = data.split("\n");
-            statementData.open = lines[0].split(",")[4];
-
-            var lastLine = lines[lines.length - 2].split(",");
-            statementData.close = lastLine[4];
-
-            $.each(lines, function (key, line) {
-                words = line.split(",");
-                words = ["-0", "-1", '-2', '3', '-4','+5'];
-
-                if (!words[3].includes("-") && !words[3].includes("+") && words[3] != "") {
-                    $.each(words, function (key, word) {
-                        console.log(word);
-                    })
-                    words.slice(3, 1);
-                    //while (!words[3].includes("-") && !words[3].includes("+") && words[3] != "") {
-                    //    words[2] += words[3];
-                    //    words.slice(3, 1);
-                    //}
-                    $.each(words, function (key, word) {
-                        console.log(word);
-                    })
-                }
-
-                statementData.transaction.push({
-                    date: words[0],
-                    desc: words[2],
-                    amount: words[3],
-                    balance: words[4]
-                })
-            });
-
-
-
-
-
-
-
-            //test();
+        function graph() {
+            var svg = $("#graph");
+            var oldX = 0;
+            var oldY = 1000;
+            $.each(statements[0].transactions, function (key, tran) {
+                var y1 = oldY;
+                var x1 = oldX;
+                var x2 = tran.date.substring(3, 5) * 10;
+                var temp = 2000-(parseFloat(((tran.newBalance).split("$"))[1]) / 2)
+                var y2 = (temp-2000)*-1;
+                oldX = x2;
+                oldY = y2;
+                var line = $("<line/>").attr("style", "stroke:rgb(255,0,0);stroke-width:1");
+                line.attr("x1", x1);
+                line.attr("y1", y1);
+                line.attr("x2", x2);
+                line.attr("y2", y2);
+                svg.append(line);
+            })
         }
 
         function test() {
-            console.log(statementData.open);
-            console.log(statementData.close);
-            $.each(statementData.transaction, function (key, value) {
-                console.log(value.amount);
-            });
+            $.each(statements, function (key, statement) {
+                console.log(statement);
+                console.log(statement.openingBalance);
+                console.log(statement.closingBalance);
+                console.log(statement.interest);
+                $.each(statement.transactions, function (key, tran) {
+                    console.log(tran.date + " " + tran.desc + " " + tran.newBalance);
+                })
+                console.log();
+            })
         }
 
-        var statementData = {
-            open: 0,
-            close: 0,
-            transaction: []
+        class Statement {
+            constructor(open, close, interest, tran) {
+                this.openingBalance = open;
+                this.closingBalance = close;
+                this.interest = interest;
+                this.transactions = tran;
+            }
         }
+
+        class Transaction {
+            constructor(date, desc, amount, newBalance) {
+                this.date = date;
+                this.desc = desc;
+                this.amount = amount;
+                this.newBalance = newBalance;
+            }
+        }
+
+
+
 
     </script>
 
