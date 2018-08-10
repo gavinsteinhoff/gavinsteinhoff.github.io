@@ -30,12 +30,17 @@ importJSON.addEventListener('change', function () {
     var reader = new FileReader();
     reader.readAsText(importJSON.files[0]);
     reader.onload = function () {;
-        statements = JSON.parse(reader.result);
+        var statementsJSON = JSON.parse(reader.result);
+        $.each(statementsJSON, function (key, value) {
+            statements.push(value);
+        });
+        console.log(statements);
         genNumbers();
         save();
         graphStatements();
     };
 });
+
 
 $(function () {
     load();
@@ -61,7 +66,7 @@ $("#clearData").click(function () {
     $("#spent").html("");
 });
 $("#export").click(function () {
-    var object = $.extend({}, userData, statements);
+    var object = $.extend({}, statements);
     var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(object));
     var a = $('<a href="data:' + data + '" download="data.json">download JSON</a>');
     a.css("display", "none");
@@ -96,8 +101,7 @@ function importStatement(data) {
         tran.push(new Transaction(value[0], value[2], value[3], balance));
     });
     var statement = (new Statement(open, close, interest, tran, date));
-
-    if (statements.filter(s=> s.date.getTime() === statement.date.getTime()).length > 0) {
+    if (statements.filter(s=> new Date(s.date).getTime() === new Date(statement.date).getTime()).length > 0) {
         alert("That statement is already in the system");
         return;
     }
@@ -108,17 +112,14 @@ function importStatement(data) {
 }
 
 function save() {
-    var jsonString = JSON.stringify(statements);
-    var settingString = JSON.stringify(userData);
-    localStorage.setItem('settings', settingString);
-    localStorage.setItem("data", jsonString);
+    var statementsString = JSON.stringify(statements);
+    localStorage.setItem("data", statementsString);
 }
 
 function load() {
-    var settingJSON = JSON.parse(localStorage.getItem("settings"));
     var statementsJSON = JSON.parse(localStorage.getItem('data'));
-    if (settingJSON != null) userData = settingJSON;
     if (statementsJSON != null) statements = statementsJSON;
+    console.log(statements);
 }
 
 function genNumbers() {
