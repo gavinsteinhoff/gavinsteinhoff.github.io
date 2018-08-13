@@ -37,7 +37,7 @@
             </div>
         </nav>
 
-        <div id="tite" class="pt-5 pl-5">
+        <div id="title" class="pt-5 pl-5">
             <h1 class="display-1">Sites</h1>
         </div>
         <div id="sitesContent" class="row justify-content-center px-5">
@@ -77,92 +77,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
         <script src="./utils.js"></script>
-        <script>
-
-            var sites = [
-                {
-                    id: 0,
-                    name: "Harvesters",
-                    desc: "Package and ship food to food banks",
-                    phone: "(785) 500 - 5000",
-                    email: "stuff@stuff.com",
-                    address: "4515 thing topeka ks",
-                    img: "./img/temp/untitled3.png"
-                },
-                            {
-                                id: 2,
-                                name: "ers",
-                                desc: "Package and ship food to food banks",
-                                phone: "(785) 500 - 5000",
-                                email: "stuff@stuff.com",
-                                address: "4515 thing topeka ks",
-                                img: "./img/temp/untitled3.png"
-                            }
-            ];
-
-
-
-            function buildSites() {
-                $.each(sites, function (key, site) {
-                    var base = $("<div>").addClass("col-auto border border-dark rounded bg-primary p-1 mr-1 mb-1");
-                    var link = $("<a>").attr("href", "./sites.html?site=" + site.id);
-                    var base2 = $("<div>").addClass("site align-items-center");
-                    var base3 = $("<div>").addClass("d-flex");
-                    var img = $("<img>").addClass("site-img");
-                    img.attr("width", "300");
-                    img.attr("height", "200");
-                    img.attr("src", site.img);
-                    var text = $("<p>").addClass("position-absolute mt-1 ml-2 img-text invisible");
-                    text.html("<b>" + site.name + "</b><br />" + site.desc);
-                    $("#sitesContent").append(base.append(link.append(base2.append(base3.append(img, text)))));
-                })
-            }
-
-
-            function buildSite(id) {
-                var site = sites.filter(s=>s.id == id)[0];
-                var base = $("<div>").addClass("col");
-                var name1 = $("<h1>").addClass("display-1 d-none d-md-block").html(site.name);
-                var name2 = $("<h1>").addClass("display-4 d-sx-block d-md-none").html(site.name);
-                var desc = $("<p>").html(site.desc);
-                var phone = $("<p>").html(site.phone);
-                var email = $("<p>").html(site.email);
-                var addr = $("<p>").html(site.address);
-                var backlink = $("<a>").addClass("btn btn-primary").attr("href", "./sites.html").html("Back to Sites");
-                base.append(name1, name2, desc, phone, email, addr, backlink);
-                var base2 = $("<div>").addClass("col-auto pt-3");
-                var img1 = $("<img>").addClass("border border-dark rounded d-none d-lg-block").attr("width", "600").attr("height", "400").attr("src", site.img);
-                var img2 = $("<img>").addClass("border border-dark rounded d-xs-block d-lg-none").attr("width", "300").attr("height", "200").attr("src", site.img);
-                base2.append(img1, img2);
-                $("#sitesContent").append(base, base2);
-            }
-
-
-
-            $(document).ready(function () {
-                if ((window.location.search.substr(1).split("=")[1]) != undefined) {
-                    buildSite(window.location.search.substr(1).split("=")[1]);
-                } else {
-                    buildSites();
-                    if ($(window).width() >= 1024) {
-                        $(".site").hover(
-                            function () {
-                                $(this).find(".site-img").addClass("grayBlur");
-                                $(this).find(".img-text").removeClass("invisible");
-                            },
-                            function () {
-                                $(this).find(".site-img").removeClass("grayBlur");
-                                $(this).find(".img-text").addClass("invisible");
-                            }
-                        );
-                    } else {
-                        $(".site-img").each(function () { $(this).addClass("grayBlur") });
-                        $(".img-text").each(function () { $(this).removeClass("invisible") });
-                    }
-                }
-            });
-
-        </script>
+        <script src="./scripts/sites.js"></script>
         <style>
             .grayBlur {
                 -webkit-filter: blur(2px) grayscale(80%);
