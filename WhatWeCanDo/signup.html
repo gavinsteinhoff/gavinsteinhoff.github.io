@@ -59,15 +59,43 @@
                     </div>
                 </div>
             </div>
+            <div class="col animate-shell border border-primary bg-dark">
+                <div class="animate rounded-circle bg-light mt-5 ml-5" style="width:50px;height:50px"></div>
+            </div>
+            <div class="col animate-shell border border-primary">
+                <input type="button" value="Button" class="m-5 button" />
+            </div>
             <div class="col-sm-4 border border-primary">
                 <div class="col py-3">
                     <div class="d-flex flex-column">
-                        <div class="d-flex flex-row-reverse">
+                        <div class="d-flex flex-row-reverse pb-2">
+                            <img src="http://via.placeholder.com/200x200" alt="..." class="popUpHoverImg rounded-circle border border-dark" style="max-height:150px">
+                            <div class="d-flex align-items-center popUpHoverText pr-3" style="opacity:0">Some test textSome test textSome test textSome test textSome test textSome test textSome test</div>
+                        </div>
+                        <div class="d-flex flex-row-reverse pb-2">
+                            <img src="http://via.placeholder.com/200x200" alt="..." class="popUpHoverImg rounded-circle border border-dark" style="max-height:150px">
+                            <div class="d-flex align-items-center popUpHoverText pr-3" style="opacity:0">Some test textSome test textSome test textSome test textSome test textSome test textSome test</div>
+                        </div>
+                        <div class="d-flex flex-row-reverse pb-2">
+                            <img src="http://via.placeholder.com/200x200" alt="..." class="popUpHoverImg rounded-circle border border-dark" style="max-height:150px">
+                            <div class="d-flex align-items-center popUpHoverText pr-3" style="opacity:0">Some test textSome test textSome test textSome test textSome test textSome test textSome test</div>
+                        </div>
+                        <div class="d-flex flex-row-reverse pb-2">
                             <img src="http://via.placeholder.com/200x200" alt="..." class="popUpHoverImg rounded-circle border border-dark" style="max-height:150px">
                             <div class="d-flex align-items-center popUpHoverText pr-3" style="opacity:0">Some test textSome test textSome test textSome test textSome test textSome test textSome test</div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div id="personPlatform">
+                <div id="person"></div>
+                <div id="platform"></div>
             </div>
         </div>
     </div>
@@ -83,28 +111,104 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="./utils.js"></script>
 
-
+    <script>
+        $(function () {
+            $("#personPlatform").draggable();
+        });
+    </script>
 
     <style>
+        .button {
+            box-shadow: 0 6px rgba(0, 0, 0, 0.2);
+        }
+
+            .button:active {
+                transform: translateY(5px);
+                box-shadow: 0 1px rgba(0, 0, 0, 0.2);
+            }
+
+
+        #platform {
+            background-color: green;
+            opacity: 100;
+            width: 70px;
+            height: 5px;
+        }
+
+        #person {
+            margin-bottom: -10px;
+            width: 50px;
+            height: 50px;
+            background: url(./img/I-can-float1.gif) no-repeat center;
+            background-size: contain;
+        }
+
+        #personPlatform {
+            cursor: grab;
+        }
+
+            #personPlatform:active {
+                cursor: grabbing;
+            }
+
+                #personPlatform:active #person {
+                    background: url(./img/I-can-float.gif) no-repeat center;
+                    background-size: contain;
+                }
+
+                #personPlatform:active #platform {
+                    opacity: 0;
+                }
+
+
+
+        .animate-shell {
+            overflow: hidden;
+        }
+
+        .animate {
+            animation-name: testing;
+            animation-duration: 10s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes testing {
+            from {
+                margin-top: -10px;
+                margin-left: -20%;
+            }
+
+            to {
+                margin-top: 20px;
+                margin-left: 105%;
+            }
+        }
+
+
         .popUpHoverImg {
             transition: all .2s ease;
         }
+
         .popUpHoverText {
             transition: all .5s ease;
         }
-        .popUpHoverImg:hover{
+
+        .popUpHoverImg:hover {
             max-height: 200px !important;
         }
-        .popUpHoverImg:hover + .popUpHoverText{
-            opacity:100 !important;
-        }
+
+            .popUpHoverImg:hover + .popUpHoverText {
+                opacity: 100 !important;
+            }
 
 
 
         .test {
             transition: all .15s linear;
         }
-        .test1{
+
+        .test1 {
             transition: all .15s linear;
         }
 
@@ -114,9 +218,9 @@
             margin-top: -5px;
         }
 
-        .test:hover .test1 {
-            opacity:100 !important;
-        }
+            .test:hover .test1 {
+                opacity: 100 !important;
+            }
     </style>
 
 </body>
